@@ -11,10 +11,10 @@ price = st.number_input("주택 가격 (원)", min_value=0, step=1000000, format
 own_money = st.number_input("보유 자금 (원)", min_value=0, step=1000000, format="%d")
 
 # 대출 이자율 입력
-interest_rate = st.number_input("대출 이자율 (%)", min_value=0.0, max_value=20.0, value=4.2, step=0.1, format="%.2f")
+interest_rate = st.number_input("대출 이자율 (%)", min_value=0.0, max_value=20.0, step=0.1, format="%.2f")
 
 # 대출 기간 입력
-loan_term_years = st.number_input("대출 기간 (년)", min_value=1, max_value=30, value=20, step=1)
+loan_term_years = st.number_input("대출 기간 (년)", min_value=1, max_value=30, step=1)
 
 # 대출 필요 금액 계산
 loan_amount = max(price - own_money, 0)
