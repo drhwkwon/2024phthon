@@ -53,13 +53,3 @@ if st.button("계산하기"):
         st.write(f"**총 비용:** {(broker_fee + acquisition_tax + price):,.0f} 원 (주택 가격 포함)")
     else:
         st.write("주택 가격을 입력해 주세요.")
-
-        broker_fee = calculate_broker_fee(price)
-        acquisition_tax = calculate_acquisition_tax(price)
-
-        # 결과 출력
-        st.write(f"**중개 수수료:** {broker_fee:,.0f} 원")
-        st.write(f"**취득세:** {acquisition_tax:,.0f} 원")
-        st.write(f"**총 비용:** {(broker_fee + acquisition_tax + price):,.0f} 원 (주택 가격 포함)")
-    else:
-        st.write("주택 가격을 입력해 주세요.")
