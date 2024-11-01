@@ -29,6 +29,30 @@ def calculate_monthly_payment(loan_amount, annual_interest_rate, loan_term_years
         monthly_payment = loan_amount * (monthly_interest_rate * math.pow(1 + monthly_interest_rate, total_months)) / (math.pow(1 + monthly_interest_rate, total_months) - 1)
         return monthly_payment
 
+# 중개 수수료 계산 함수
+def calculate_broker_fee(price):
+    if price <= 500000000:
+        fee_rate = 0.005
+    elif price <= 900000000:
+        fee_rate = 0.004
+    elif price <= 1200000000:
+        fee_rate = 0.005
+    elif price <= 1500000000:
+        fee_rate = 0.006
+    else:
+        fee_rate = 0.007
+    return min(price * fee_rate, 25000000)  # 최대 2,500만 원 상한선
+
+# 취득세 계산 함수
+def calculate_acquisition_tax(price):
+    if price <= 600000000:
+        tax_rate = 0.01
+    elif price <= 900000000:
+        tax_rate = 0.02
+    else:
+        tax_rate = 0.03
+    return price * tax_rate
+
 # 계산 버튼
 if st.button("계산하기"):
     if price > 0 and own_money >= 0 and interest_rate >= 0 and loan_term_years > 0:
@@ -37,10 +61,16 @@ if st.button("계산하기"):
         total_payment = monthly_payment * loan_term_years * 12
         total_interest = total_payment - loan_amount
 
+        # 중개 수수료와 취득세 계산
+        broker_fee = calculate_broker_fee(price)
+        acquisition_tax = calculate_acquisition_tax(price)
+
         # 결과 출력
         st.write(f"**대출 필요 금액:** {loan_amount:,.0f} 원")
         st.write(f"**월 상환금액 (원리금 균등 상환):** {monthly_payment:,.0f} 원")
         st.write(f"**총 상환 금액:** {total_payment:,.0f} 원")
         st.write(f"**총 이자 부담:** {total_interest:,.0f} 원")
+        st.write(f"**부동산 중개 수수료:** {broker_fee:,.0f} 원")
+        st.write(f"**취득세:** {acquisition_tax:,.0f} 원")
     else:
         st.write("모든 입력 값을 올바르게 입력해 주세요.")
